@@ -1,0 +1,25 @@
+import { Router } from "express";
+import admin from "./admin.routes.js";
+import auth from "./auth.routes.js";
+import bookings from "./bookings.routes.js";
+import contact from "./contact.routes.js";
+import gallery from "./gallery.routes.js";
+import menu from "./menu.routes.js";
+import restaurant from "./restaurant.routes.js";
+import rooms from "./rooms.routes.js";
+import settings from "./settings.routes.js";
+import testimonials from "./testimonials.routes.js";
+
+const r = Router();
+r.get("/health", (_req, res) => res.json({ success: true, data: { status: "ok", time: new Date().toISOString() } }));
+r.use("/auth", auth);
+r.use("/admin", admin);
+r.use("/rooms", rooms);
+r.use("/bookings", bookings);
+r.use("/restaurant", restaurant);
+r.use("/menu", menu);
+r.use("/gallery", gallery);
+r.use("/testimonials", testimonials);
+r.use("/contact", contact);
+r.use("/settings", settings);
+export default r;
