@@ -43,6 +43,9 @@ export function createApp() {
   app.use(cookieParser());
   app.use(sanitizeInput);
 
+  app.get("/", (_req, res) => res.json({ success: true, data: { service: "Shimshal Heights API", status: "running", health: "/api/health" } }));
+  app.get(["/favicon.ico", "/favicon.png"], (_req, res) => res.status(204).end());
+
   if (process.env.VERCEL) {
     app.use("/api", (_req, _res, next) => { ensureDatabase().then(() => next(), next); });
   }
