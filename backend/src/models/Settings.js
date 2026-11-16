@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const settingsSchema = new mongoose.Schema(
   {
     key: { type: String, default: "main", unique: true, immutable: true }, // singleton guard
+    homepage: { type: Map, of: new mongoose.Schema({}, { strict: false, _id: false }), default: {} },
     hotelName: { type: String, default: "Shimshal Heights", trim: true },
     logo: { type: new mongoose.Schema({ url: String, publicId: String }, { _id: false }), default: undefined },
     description: { type: String, default: "", maxlength: 2000 },
@@ -24,7 +25,7 @@ const settingsSchema = new mongoose.Schema(
     googleMapsUrl: { type: String, default: "" },
     googleMapsEmbedUrl: { type: String, default: "" },
   },
-  { timestamps: true },
+  { timestamps: true, toObject: { flattenMaps: true } },
 );
 
 export const Settings = mongoose.model("Settings", settingsSchema);

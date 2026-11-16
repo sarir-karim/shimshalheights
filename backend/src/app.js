@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
@@ -9,6 +11,14 @@ import { originCheck } from "./middleware/originCheck.js";
 import { globalLimiter } from "./middleware/rateLimit.js";
 import { sanitizeInput } from "./middleware/sanitize.js";
 import routes from "./routes/index.js";
+
+let databaseReady;
+async function ensureDatabase() {
+  if (!databaseReady) {
+    databaseReady = connectDB().then(() => Promise.all(Object.values(mongoose.models).map(model => model.init()))).catch(error => { databaseReady = undefined; throw error; });
+  }
+  return databaseReady;
+}
 
 export function createApp() {
   const app = express();
@@ -33,8 +43,14 @@ export function createApp() {
   app.use(cookieParser());
   app.use(sanitizeInput);
 
+  if (process.env.VERCEL) {
+    app.use("/api", (_req, _res, next) => { ensureDatabase().then(() => next(), next); });
+  }
   app.use("/api", globalLimiter, originCheck, routes);
   app.use(notFound);
   app.use(errorHandler);
   return app;
 }
+
+// Vercel detects this Express entry point; local startup remains in server.js.
+export default createApp();

@@ -126,3 +126,7 @@ export async function getSiteImages(): Promise<SiteImages> {
     map: local("fallback-map", "Map"),
   };
 }
+
+export async function getHomepage(): Promise<Record<string, Record<string, string>>> {
+ return optional(async () => (await apiGet<{ homepage?: Record<string, Record<string, string>> }>("/settings")).data.homepage ?? {}, {});
+}

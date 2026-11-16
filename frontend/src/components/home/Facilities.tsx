@@ -11,12 +11,12 @@ const icons: Record<Facility["icon"], LucideIcon> = {
   support: HeartHandshake,
 };
 
-export function Facilities({ facilities }: { facilities: Facility[] }) {
+export function Facilities({ content = {}, facilities }: { content?: Record<string, string>; facilities: Facility[] }) {
   return (
     <section className="section" aria-labelledby="facilities-title">
       <div className="container-page grid gap-14 lg:grid-cols-[0.8fr_1.4fr] lg:gap-20">
         <div id="facilities-title">
-          <SectionHeading title="Everything you need after a long day in the mountains" description="Simple comforts, done properly." />
+          <SectionHeading title={content.text1 ?? "Everything you need after a long day in the mountains"} description={content.text2 ?? "Simple comforts, done properly."} />
         </div>
         <ul className="grid gap-x-12 gap-y-9 sm:grid-cols-2">
           {facilities.map((item) => {

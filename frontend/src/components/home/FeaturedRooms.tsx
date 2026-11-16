@@ -7,17 +7,17 @@ import { SmartImage } from "@/components/ui/SmartImage";
 import { formatCurrency } from "@/lib/utils";
 import type { Room } from "@/types";
 
-export function FeaturedRooms({ rooms }: { rooms: Room[] }) {
+export function FeaturedRooms({ content = {}, rooms }: { content?: Record<string, string>; rooms: Room[] }) {
   return (
     <section className="section bg-stone-deep" aria-labelledby="rooms-title">
       <div className="container-page">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <div id="rooms-title"><SectionHeading title="Rooms for every kind of stay" description="From a quiet double to a family room, all with heating and mountain views." /></div>
-          <ButtonLink href="/rooms" variant="secondary">View all rooms</ButtonLink>
+          <div id="rooms-title"><SectionHeading title={content.text7 ?? "Rooms for every kind of stay"} description={content.text8 ?? "From a quiet double to a family room, all with heating and mountain views."} /></div>
+          <ButtonLink href="/rooms" variant="secondary">{content.text1 ?? "View all rooms"}</ButtonLink>
         </div>
 
         {rooms.length === 0 ? (
-          <p className="mt-12 rounded-xl2 bg-white p-8 text-slate-soft">Rooms will appear here soon. Contact the hotel to ask about availability.</p>
+          <p className="mt-12 rounded-xl2 bg-white p-8 text-slate-soft">{content.text2 ?? "Rooms will appear here soon. Contact the hotel to ask about availability."}</p>
         ) : (
           <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {rooms.map((room) => (
@@ -32,18 +32,18 @@ export function FeaturedRooms({ rooms }: { rooms: Room[] }) {
                   <p className="mt-4 flex-1 text-slate-soft">{room.shortDescription}</p>
                   <p className="mt-5 text-slate-soft">
                     <span className="font-display text-2xl text-forest-dark">{formatCurrency(room.pricePerNight)}</span> / night
-                    {siteSettings.demoMode && <span className="ml-2 text-xs text-slate-muted">(demo price)</span>}
+                    {siteSettings.demoMode && <span className="ml-2 text-xs text-slate-muted">{content.text3 ?? "(demo price)"}</span>}
                   </p>
                   <div className="mt-5 flex gap-3">
-                    <ButtonLink href={`/rooms/${room.slug}`} variant="secondary" className="flex-1 px-4">View Details</ButtonLink>
-                    <ButtonLink href={`/booking?room=${room.slug}`} className="flex-1 px-4">Book Now</ButtonLink>
+                    <ButtonLink href={`/rooms/${room.slug}`} variant="secondary" className="flex-1 px-4">{content.text4 ?? "View Details"}</ButtonLink>
+                    <ButtonLink href={`/booking?room=${room.slug}`} className="flex-1 px-4">{content.text5 ?? "Book Now"}</ButtonLink>
                   </div>
                 </div>
               </article>
             ))}
           </div>
         )}
-        <p className="sr-only"><Link href="/rooms">All rooms</Link></p>
+        <p className="sr-only"><Link href="/rooms">{content.text6 ?? "All rooms"}</Link></p>
       </div>
     </section>
   );

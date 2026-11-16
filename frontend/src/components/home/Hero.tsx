@@ -27,10 +27,10 @@ function getReducedMotionServerSnapshot() {
  * The one orchestrated motion on the page: the photograph settles in and the text rises once on load.
  * Reduced-motion users get the final state immediately.
  */
-export function Hero({ name, image }: { name: string; image: SiteImage }) {
+export function Hero({ content = {}, name, image }: { content?: Record<string, string>; name: string; image: SiteImage }) {
   const reduce = useSyncExternalStore(subscribeToReducedMotion, getReducedMotionSnapshot, getReducedMotionServerSnapshot);
   const rise = (delay: number) =>
-    reduce ? {} : { initial: { opacity: 0, y: 22 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, delay, ease: "easeOut" as const } };
+    reduce ? {} : { initial: { y: 22 }, animate: { y: 0 }, transition: { duration: 0.8, delay, ease: "easeOut" as const } };
 
   return (
     <section aria-labelledby="hero-title">
@@ -45,19 +45,15 @@ export function Hero({ name, image }: { name: string; image: SiteImage }) {
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/90 via-forest-dark/50 to-forest-dark/55" aria-hidden />
 
-        <div className="container-page relative pb-28 pt-40 sm:pb-36">
-          <motion.p {...rise(0.2)} className="mb-4 text-lg text-sand-light">
-            Shimshal Valley, Upper Hunza
-          </motion.p>
-          <motion.h1 id="hero-title" {...rise(0.35)} className="max-w-3xl !text-stone text-[2.6rem] leading-[1.05] sm:text-6xl lg:text-7xl">
-            Experience Comfort in the Heart of Shimshal.
-          </motion.h1>
+        <div className="container-page relative z-10 pb-28 pt-40 sm:pb-36">
+          <motion.p {...rise(0.2)} className="mb-4 text-lg text-sand-light">{content.text1?.trim() || "Shimshal Valley, Upper Hunza"}</motion.p>
+          <motion.h1 id="hero-title" {...rise(0.35)} className="max-w-3xl break-words !text-stone text-[2.6rem] leading-[1.05] sm:text-6xl lg:text-7xl">{content.text2?.trim() || "Experience Comfort in the Heart of Shimshal."}</motion.h1>
           <motion.p {...rise(0.5)} className="mt-6 max-w-xl text-lg text-stone/85">
-            {name} is a mountain hotel with warm rooms, a restaurant serving fresh meals, and the high peaks of Hunza outside your window.
+            {content.description?.trim() || `${name} is a mountain hotel with warm rooms, a restaurant serving fresh meals, and the high peaks of Hunza outside your window.`}
           </motion.p>
           <motion.div {...rise(0.65)} className="mt-9 flex flex-wrap gap-3">
-            <ButtonLink href="/rooms" variant="light">Explore Rooms</ButtonLink>
-            <ButtonLink href="/booking" variant="ghost">Book Your Stay</ButtonLink>
+            <ButtonLink href="/rooms" variant="light">{content.text3?.trim() || "Explore Rooms"}</ButtonLink>
+            <ButtonLink href="/booking" variant="ghost">{content.text4?.trim() || "Book Your Stay"}</ButtonLink>
           </motion.div>
         </div>
       </div>

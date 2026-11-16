@@ -19,6 +19,7 @@ export const adminNav: NavItem[] = [
   { href: "/admin/gallery", label: "Gallery", icon: Images, adminOnly: true },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote, adminOnly: true },
   { href: "/admin/messages", label: "Messages", icon: Mail },
+  { href: "/admin/homepage", label: "Homepage", icon: LayoutDashboard, adminOnly: true },
   { href: "/admin/settings", label: "Settings", icon: Settings, adminOnly: true },
 ];
 

@@ -8,7 +8,6 @@ import { navLinks } from "@/config/site";
 import { useSiteSettings } from "@/components/providers/SiteSettingsProvider";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "@/components/ui/Button";
-import { DemoNotice } from "@/components/layout/DemoNotice";
 
 export function Header() {
   const settings = useSiteSettings();
@@ -42,7 +41,6 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-      <DemoNotice />
       <div
         className={cn(
           "transition-colors duration-300",

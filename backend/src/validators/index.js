@@ -154,6 +154,7 @@ export const contactListQuery = z.object({ ...pageQuery, q: z.string().trim().ma
 // ---------- Settings ----------
 export const settingsUpdateBody = z
   .object({
+    homepage: z.record(z.string().max(80), z.record(z.string().max(80), z.string().max(5000))).optional(),
     hotelName: str(100).optional(),
     description: z.string().trim().max(2000).optional(),
     address: z.string().trim().max(300).optional(),

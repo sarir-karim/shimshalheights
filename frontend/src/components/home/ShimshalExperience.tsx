@@ -2,13 +2,13 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartImage } from "@/components/ui/SmartImage";
 import type { ExperienceItem } from "@/types";
 
-export function ShimshalExperience({ items }: { items: ExperienceItem[] }) {
+export function ShimshalExperience({ content = {}, items }: { content?: Record<string, string>; items: ExperienceItem[] }) {
   const [lead, ...rest] = items;
   if (!lead) return null;
   return (
     <section className="section" aria-labelledby="experience-title">
       <div className="container-page">
-        <div id="experience-title"><SectionHeading title="The Shimshal experience" description="One of the most remote valleys in Hunza, and one of the most rewarding to reach." /></div>
+        <div id="experience-title"><SectionHeading title={content.text1 ?? "The Shimshal experience"} description={content.text2 ?? "One of the most remote valleys in Hunza, and one of the most rewarding to reach."} /></div>
         <div className="mt-12 grid gap-5 lg:grid-cols-[1.3fr_1fr]">
           <figure className="relative min-h-[26rem] overflow-hidden rounded-xl2 lg:row-span-3">
             <SmartImage image={lead.image} sizes="(min-width: 1024px) 55vw, 100vw" wrapperClassName="absolute inset-0 h-full w-full" />

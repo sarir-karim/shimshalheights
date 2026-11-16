@@ -4,13 +4,13 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StarRating } from "@/components/ui/StarRating";
 import type { Testimonial } from "@/types";
 
-export function Testimonials({ items }: { items: Testimonial[] }) {
+export function Testimonials({ content = {}, items }: { content?: Record<string, string>; items: Testimonial[] }) {
   const [lead, ...rest] = items;
   if (!lead) return null;
   return (
     <section className="section" aria-labelledby="reviews-title">
       <div className="container-page">
-        <div id="reviews-title"><SectionHeading title="What guests say" description={siteSettings.demoMode ? "Sample reviews shown for layout. Real guest feedback replaces these before launch." : "Kind words from guests who stayed with us."} /></div>
+        <div id="reviews-title"><SectionHeading title={content.text1 ?? "What guests say"} description={siteSettings.demoMode ? "Sample reviews shown for layout. Real guest feedback replaces these before launch." : "Kind words from guests who stayed with us."} /></div>
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
           <figure className="rounded-xl2 bg-forest p-8 text-stone shadow-soft sm:p-10">
             <Quote className="h-9 w-9 text-sand" aria-hidden />
