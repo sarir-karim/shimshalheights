@@ -40,6 +40,6 @@ export const navLinks = [
 ] as const;
 
 /** Backend base URL, used only by server-side data fetching. */
-export const backendUrl = process.env.BACKEND_URL ?? "http://localhost:5000";
+export const backendUrl = (process.env.BACKEND_URL ?? (process.env.NODE_ENV === "production" ? "https://shimshalheights.vercel.app" : "http://localhost:5000")).replace(/\/$/, "");
 /** Offline development: serve the built-in demo data instead of calling the API. */
 export const useMockData = process.env.NEXT_PUBLIC_USE_MOCK === "true";

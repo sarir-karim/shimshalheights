@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:5000";
+const BACKEND_URL = (process.env.BACKEND_URL ?? (process.env.NODE_ENV === "production" ? "https://shimshalheights.vercel.app" : "http://localhost:5000")).replace(/\/$/, "");
 
 const nextConfig = {
   reactStrictMode: true,
