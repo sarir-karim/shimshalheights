@@ -1,3 +1,4 @@
+import { allowedOrigins } from "../utils/origins.js";
 import "dotenv/config";
 import { z } from "zod";
 
@@ -39,7 +40,7 @@ export const env = {
   ...parsed.data,
   isProd: parsed.data.NODE_ENV === "production",
   isTest: parsed.data.NODE_ENV === "test",
-  clientOrigins: parsed.data.CLIENT_ORIGINS.split(",").map((o) => o.trim()).filter(Boolean),
+  clientOrigins: allowedOrigins(parsed.data.CLIENT_ORIGINS, parsed.data.NODE_ENV === "production"),
   cloudinaryConfigured: Boolean(
     parsed.data.CLOUDINARY_CLOUD_NAME && parsed.data.CLOUDINARY_API_KEY && parsed.data.CLOUDINARY_API_SECRET,
   ),
